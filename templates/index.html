@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+  <style>
+    button,
+    input,
+    optgroup,
+    select,
+    textarea,
+    label {
+      margin: 3% 0;
+      background: black;
+    }
+    label {
+      background-color:darkviolet
+    }
+
+    .logincss {
+      padding: 0 20%;
+    }
+
+    body {
+      background-image: url('../static/img/bg.jpeg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .transbox {
+      /* margin: 30px; */
+      background-color: #ffffff;
+      border: 1px solid black;
+      opacity: 0.8;
+      padding: 3% 20%;
+
+    }
+
+
+
+    .divresult {
+      background-color:darkseagreen;
+
+    }
+  </style>
+
+  <script>
+    function req(){
+      document.getElementById("age").required;
+      document.getElementById("trestbps").required;
+      document.getElementById("chol").required;
+      document.getElementById("thalach").required;
+      document.getElementById("oldpeak").required;
+
+    }
+    // function ret(){
+    //   req();
+    //   document.getElementById("div1").style.display = "none";
+    //   document.getElementById("div2").style.display = "block";
+    // }
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center text-white">
+        <h1 class="font-weight-bold">Heart Disease Prediction in Heathcare </h1>
+      </div>
+
+      <div id="div2" class="col-12 logincss">
+        <h2 style="background-color: lawngreen;"> <b>{{ prediction_text }} </b> </h2> 
+      </div>
+
+      <div id="div1" class="col-12 logincss">
+        
+ 
+        <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{ url_for('predict')}}" class="transbox" method="post">
+
+          <input id = "age" type="number" name="age" min="1" max="100" placeholder="Age" required="required" /> <br>
+
+
+          <label for="sex">Gender :</label>
+          <select id="sex" name="sex" placeholder="Gender" required="required">
+            <option value=1>MALE</option>
+            <option value=2>FEMALE</option>
+          </select>
+          <br>
+
+          <!-- <input type="text" name="sex" placeholder="Gender" required="required" /> -->
+          <label for="cp">Chest Pain Type :</label>
+          <select id="cp" name="cp" placeholder="Chest Pain Type" required="required">
+            <option value=0>Typical Angina</option>
+            <option value=1>Atypical Angina</option>
+            <option value=2>Non-Anginal Pain</option>
+            <option value=3>Asymptomatic</option>
+          </select>
+          <br>
+          <!-- <input type="text" name="cp" placeholder="Chest Pain Type" required="required" /> -->
+
+          <input id = "trestbps" type="number" name="trestbps" placeholder="Resting Blood Pressure" required="required" /> <br>
+
+          <input type="number" id = "chol" name="chol" placeholder="Serum Cholestoral" required="required" /> <br>
+
+          <label for="fbs">Fasting Blood Sugar :</label>
+          <select id="fbs" name="fbs" placeholder="Fasting Blood Sugar" required="required">
+            <option value=0>False</option>
+            <option value=1>True</option>
+          </select>
+          <br>
+          <!-- <input type="number" name="fbs" placeholder="Fasting Blood Sugar" required="required" /> -->
+
+          <label for="restecg">Resting Electrocardiographic Results :</label>
+          <select id="restecg" name="restecg" placeholder="Resting Electrocardiographic Results" required="required">
+            <option value=0>Normal</option>
+            <option value=1>Having ST-T</option>
+            <option value=2>Hypertrophy</option>
+          </select>
+          <br>
+          <!-- <input type="text" name="restecg" placeholder="Resting Electrocardiographic Results" required="required" /> -->
+          <input type="number" id = "thalach" name="thalach" placeholder="Maximum Heart Rate Achieved" required="required" />
+
+          <label for="exang">Exercise Induced Angina :</label>
+          <select id="exang" name="exang" placeholder="Exercise Induced Angina" required="required">
+            <option value=0>No</option>
+            <option value=1>Yes</option>
+          </select>
+          <br>
+          <!-- <input type="text" name="exang" placeholder="Exercise Induced Angina" required="required" /> -->
+
+          <!-- <label for="oldpeak">Oldpeak :</label>
+      <select id="oldpeak" name="oldpeak" placeholder="Oldpeak" required="required">
+        <option value=1>MALE</option>
+        <option value=2>FEMALE</option>
+      </select> -->
+
+          <input type="text" name="oldpeak" id = "oldpeak" placeholder="Oldpeak" required="required" /> <br>
+
+          <label for="slope">Slope Of The Peak :</label>
+          <select id="slope" name="slope" placeholder="Slope Of The Peak" required="required">
+            <option value=0>Upsloping</option>
+            <option value=1>Flat</option>
+            <option value=2>Downsloping</option>
+          </select>
+          <br>
+          <!-- <input type="text" name="slope" placeholder="Slope Of The Peak" required="required" /> -->
+
+          <label for="ca">Colored By Flourosopy :</label>
+          <select id="ca" name="ca" placeholder="Colored By Flourosopy" required="required">
+            <option value=0>0</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+          </select>
+          <br>
+          <!-- <input type="text" name="ca" placeholder="Colored By Flourosopy" required="required" /> -->
+
+          <label for="thal">Thal :</label>
+          <select id="thal" name="thal" placeholder="Thal" required="required">
+            <option value=1>Normal</option>
+            <option value=2>Fixed Defect</option>
+            <option value=2>Reversable</option>
+            <option value=2>Defect</option>
+          </select>
+          <br>
+
+          <!-- <input type="text" name="thal" placeholder="Thal" required="required" /> -->
+
+
+          <button  type="submit" class="btn btn-primary btn-block btn-large" data-toggle="modal" data-target="#myModal">Predict</button>
+          
+          
+          
+          
+        
+
+        <br>
+        <br>
+        <div class="divresult">
+        <center style="color: orangered;"><h3> <b><u>About us</u> </b></h3>     </center>
+        <center ><h4> <b>This is the Heart Disease Prediction Website,<br><br> <u  style="color: orangered;">Our Members </u> </b> <i><br> Ravi Mendhe<br> Raj Mendhe<br> Kalyan Kathar</i><br><br><u style="color: orangered;"> <b>Guided By</b> </u><br> <i> Prof. Padmapani Tribhuvan</i> </h4>     </center>
+
+        </div>
+        
+
+      </form>
+
+
+
+
+
+
+
+
+
+        <!-- <br>
+        
+        <br> -->
+
+        <!-- The Modal -->
+        <!-- <div class="modal fade" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content"> -->
+
+              <!-- Modal Header -->
+              <!-- <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div> -->
+
+              <!-- Modal body -->
+              <!-- <div class="modal-body">
+                {{ prediction_text }}
+              </div> -->
+
+              <!-- Modal footer -->
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div> -->
+
+        <!-- {{ prediction_text }} -->
+        <!-- <br>
+        <br> -->
+       <!-- <h1 style="background-color: lawngreen;"> {{ prediction_text }} </h1>  -->
+
+      </div>
+     
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
