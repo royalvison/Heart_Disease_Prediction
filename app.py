@@ -33,9 +33,9 @@ def predict():
     myFile.close()
 
     if bool(output):
-        return  render_template('index.html', prediction_text='Yes, as per given data person is having Heart disease')
+        return  render_template('index.html', prediction_text='Yes, as per given data, there are high chances for having Heart disease')
     else:
-        return  render_template('index.html', prediction_text='No, as per given data person does not having Heart disease')
+        return  render_template('index.html', prediction_text='No, as per given data, there are less chances for having Heart disease')
 
     
 
