@@ -111,9 +111,9 @@
           <br>
           <!-- <input type="text" name="cp" placeholder="Chest Pain Type" required="required" /> -->
 
-          <input id = "trestbps" type="number" name="trestbps" placeholder="Resting Blood Pressure" required="required" /> <br>
+          <input id = "trestbps" type="number" name="trestbps" min="90" max="210" placeholder="Resting Blood Pressure" required="required" /> <br>
 
-          <input type="number" id = "chol" name="chol" placeholder="Serum Cholestoral" required="required" /> <br>
+          <input type="number" id = "chol" name="chol" min="125" max="565" placeholder="Serum Cholestoral" required="required" /> <br>
 
           <label for="fbs">Fasting Blood Sugar :</label>
           <select id="fbs" name="fbs" placeholder="Fasting Blood Sugar" required="required">
@@ -131,7 +131,7 @@
           </select>
           <br>
           <!-- <input type="text" name="restecg" placeholder="Resting Electrocardiographic Results" required="required" /> -->
-          <input type="number" id = "thalach" name="thalach" placeholder="Maximum Heart Rate Achieved" required="required" />
+          <input type="number" id = "thalach" name="thalach" min="70" max="205" placeholder="Maximum Heart Rate Achieved" required="required" />
 
           <label for="exang">Exercise Induced Angina :</label>
           <select id="exang" name="exang" placeholder="Exercise Induced Angina" required="required">
